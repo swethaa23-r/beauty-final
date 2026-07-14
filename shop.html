@@ -1,0 +1,1041 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Stackly - Shop Premium Beauty Products">
+    <title>Shop | Stackly</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css?v=2">
+    <link rel="stylesheet" href="assets/css/animations.css?v=2">
+    <link rel="stylesheet" href="assets/css/responsive-fixes.css">
+
+    <style>
+        .shop-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+        
+        @media (max-width: 992px) {
+            .shop-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sidebar {
+            background: #fff;
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            height: fit-content;
+        }
+
+        .filter-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .filter-group h4 {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--color-beige);
+            padding-bottom: 10px;
+        }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .filter-item:hover {
+            color: var(--color-rose-gold);
+        }
+
+        .filter-item input[type="checkbox"],
+        .filter-item input[type="radio"] {
+            accent-color: var(--color-rose-gold);
+            cursor: pointer;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: var(--spacing-xl);
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--color-beige);
+            background: #fff;
+            color: var(--color-black);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: var(--transition-smooth);
+        }
+
+        .page-btn:hover, .page-btn.active {
+            background: var(--color-rose-gold);
+            color: #fff;
+            border-color: var(--color-rose-gold);
+        }
+        
+        .product-card.hidden {
+            display: none !important;
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/candy.css">
+    <script src="assets/js/header.js"></script>
+    <link rel="stylesheet" href="assets/css/header.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <stackly-header></stackly-header>
+
+    <!-- Main Content Area -->
+    <main style="padding-top: 80px;">
+        
+        <!-- Hero Banner -->
+        <section class="page-hero" style="background: linear-gradient(rgba(248,244,239,0.8), rgba(248,244,239,0.9)), url('images/shop_img_1.webp') center/cover; padding: 100px 0; text-align: center;&fm=webp&q=60">
+            <div class="container" data-aos="fade-up">
+                <h1 style="font-size: 3rem; margin-bottom: 10px;">Shop Collection</h1>
+                <p style="font-size: 1.1rem; color: #666;">Discover the finest selection of premium skincare and cosmetics.</p>
+            </div>
+        </section>
+
+        <!-- Premium Shop Layout -->
+        <section class="section-padding" style="background-color: var(--color-beige);">
+            <div class="container">
+                
+                <!-- Horizontal Toolbar -->
+                <div class="shop-toolbar" data-aos="fade-down">
+                    <div class="shop-filters" id="category-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="skincare">Skincare</button>
+                        <button class="filter-btn" data-filter="makeup">Makeup</button>
+                        <button class="filter-btn" data-filter="haircare">Hair Care</button>
+                        <button class="filter-btn" data-filter="bodycare">Body Care</button>
+                        <button class="filter-btn" data-filter="fragrance">Fragrance</button>
+                        <button class="filter-btn" data-filter="accessories">Accessories</button>
+                    </div>
+
+                    <div class="shop-controls">
+                        <div class="shop-search">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="shopSearchInput" placeholder="Search products...">
+                        </div>
+                        <div class="shop-sort">
+                            <select id="sort-select">
+                                <option value="featured">Sort by: Featured</option>
+                                <option value="new">New Arrivals</option>
+                                <option value="bestseller">Best Sellers</option>
+                                <option value="lowToHigh">Price: Low to High</option>
+                                <option value="highToLow">Price: High to Low</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="shop-header" style="margin-bottom: 2rem;">
+                    <p style="color: #666;" id="product-count">Showing 0 results</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="product-grid" id="product-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px;" data-aos="fade-up">
+                    <!-- Products generated by JS -->
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Recently Viewed -->
+        <section class="section-padding" style="background-color: #fff;">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Recently Viewed</h2>
+                    <p>Pick up right where you left off</p>
+                </div>
+                <div class="marquee-container" style="overflow: hidden; white-space: nowrap; width: 100%; padding: 20px 0;">
+                    <div class="marquee-track" style="display: inline-flex; gap: 30px; animation: marquee 15s linear infinite;">
+                        
+                    <div class="product-card">
+                        <div class="product-img-wrapper">
+                            <img src="images/shop_img_2.webp" alt="Radiance Serum" loading="lazy" onerror="this.onerror=null;this.src='images/shop_img_1.webp'">
+                            <div class="product-actions">
+                                <button title="Quick View"><i class="fa-regular fa-eye"></i></button>
+                                <button title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Illuminating Rose Serum</h3>
+                            <p class="price">$85.00</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img-wrapper">
+                            <img src="images/shop_img_3.webp" alt="Perfume" loading="lazy" onerror="this.onerror=null;this.src='images/shop_img_1.webp'">
+                            <div class="product-actions">
+                                <button title="Quick View"><i class="fa-regular fa-eye"></i></button>
+                                <button title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Signature Floral Perfume</h3>
+                            <p class="price">$120.00</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img-wrapper">
+                            <img src="images/shop_img_1.webp" alt="Cleanser" loading="lazy" onerror="this.onerror=null;this.src='images/shop_img_1.webp'">
+                            <div class="product-actions">
+                                <button title="Quick View"><i class="fa-regular fa-eye"></i></button>
+                                <button title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Gentle Purifying Cleanser</h3>
+                            <p class="price">$42.00</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img-wrapper">
+                            <img src="images/prod_cream.webp" alt="Night Cream" loading="lazy" onerror="this.onerror=null;this.src='images/prod_cream.webp'">
+                            <div class="product-actions">
+                                <button title="Quick View"><i class="fa-regular fa-eye"></i></button>
+                                <button title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Revitalizing Night Cream</h3>
+                            <p class="price">$95.00</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img-wrapper">
+                            <img src="images/prod_oil.webp" alt="Lip Balm" loading="lazy" onerror="this.onerror=null;this.src='images/prod_cream.webp'">
+                            <div class="product-actions">
+                                <button title="Quick View"><i class="fa-regular fa-eye"></i></button>
+                                <button title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Hydrating Lip Balm</h3>
+                            <p class="price">$22.00</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img-wrapper">
+                            <img src="images/prod_serum.webp" alt="Sunscreen" loading="lazy" onerror="this.onerror=null;this.src='images/prod_cream.webp'">
+                            <div class="product-actions">
+                                <button title="Quick View"><i class="fa-regular fa-eye"></i></button>
+                                <button title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Mineral Sunscreen SPF 50</h3>
+                            <p class="price">$45.00</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-img-wrapper">
+                            <img src="images/shop_img_2.webp" alt="Radiance Serum" loading="lazy" onerror="this.onerror=null;this.src='images/shop_img_1.webp'">
+                            <div class="product-actions">
+                                <button title="Quick View"><i class="fa-regular fa-eye"></i></button>
+                                <button title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Illuminating Rose Serum</h3>
+                            <p class="price">$85.00</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img-wrapper">
+                            <img src="images/shop_img_3.webp" alt="Perfume" loading="lazy" onerror="this.onerror=null;this.src='images/shop_img_1.webp'">
+                            <div class="product-actions">
+                                <button title="Quick View"><i class="fa-regular fa-eye"></i></button>
+                                <button title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Signature Floral Perfume</h3>
+                            <p class="price">$120.00</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img-wrapper">
+                            <img src="images/shop_img_1.webp" alt="Cleanser" loading="lazy" onerror="this.onerror=null;this.src='images/shop_img_1.webp'">
+                            <div class="product-actions">
+                                <button title="Quick View"><i class="fa-regular fa-eye"></i></button>
+                                <button title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Gentle Purifying Cleanser</h3>
+                            <p class="price">$42.00</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img-wrapper">
+                            <img src="images/prod_cream.webp" alt="Night Cream" loading="lazy" onerror="this.onerror=null;this.src='images/prod_cream.webp'">
+                            <div class="product-actions">
+                                <button title="Quick View"><i class="fa-regular fa-eye"></i></button>
+                                <button title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Revitalizing Night Cream</h3>
+                            <p class="price">$95.00</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img-wrapper">
+                            <img src="images/prod_oil.webp" alt="Lip Balm" loading="lazy" onerror="this.onerror=null;this.src='images/prod_cream.webp'">
+                            <div class="product-actions">
+                                <button title="Quick View"><i class="fa-regular fa-eye"></i></button>
+                                <button title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Hydrating Lip Balm</h3>
+                            <p class="price">$22.00</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img-wrapper">
+                            <img src="images/prod_serum.webp" alt="Sunscreen" loading="lazy" onerror="this.onerror=null;this.src='images/prod_cream.webp'">
+                            <div class="product-actions">
+                                <button title="Quick View"><i class="fa-regular fa-eye"></i></button>
+                                <button title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Mineral Sunscreen SPF 50</h3>
+                            <p class="price">$45.00</p>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+                <style>
+                    @keyframes marquee {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(-50%); }
+                    }
+                    .marquee-container:hover .marquee-track {
+                        animation-play-state: paused;
+                    }
+                    .marquee-track .product-card {
+                        max-width: 90%; width: 280px;
+                        flex-shrink: 0;
+                        white-space: normal;
+                    }
+                </style>
+    </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="section-padding newsletter-banner" style="background: linear-gradient(135deg, rgba(200, 155, 123, 0.8), rgba(46, 46, 46, 0.9)); color: #fff; text-align: center;">
+            <div class="container" data-aos="zoom-in">
+                <h2>Join the Glow Club</h2>
+                <p style="color: rgba(255,255,255,0.8); margin-bottom: var(--spacing-lg);">Subscribe for 10% off your first order and exclusive beauty insights.</p>
+                <form action="404.html" class="luxury-subscribe" >
+                    <input type="email" placeholder="Enter your email address" required >
+                    <button type="submit" >Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ===== SECTION 1: WHY CHOOSE US ===== -->
+        <section class="shop-why-section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Why Shop With Us</h2>
+                    <p>Premium beauty, backed by a promise of quality</p>
+                </div>
+                <div class="why-grid">
+                    <div class="why-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="why-icon">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <h3>100% Natural</h3>
+                        <p>All our products are made with clean, ethically sourced natural ingredients — no harmful chemicals.</p>
+                    </div>
+                    <div class="why-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="why-icon">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <h3>Free Delivery</h3>
+                        <p>Enjoy free express shipping on all orders above $50. Your beauty essentials arrive within 2–3 days.</p>
+                    </div>
+                    <div class="why-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="why-icon">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </div>
+                        <h3>Easy Returns</h3>
+                        <p>Not satisfied? Return any product within 30 days, no questions asked. Your happiness is our priority.</p>
+                    </div>
+                    <div class="why-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="why-icon">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3>Secure Payments</h3>
+                        <p>Shop with confidence. All transactions are SSL-encrypted and your data is never shared.</p>
+                    </div>
+                    <div class="why-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="why-icon">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <h3>Dermatologist Tested</h3>
+                        <p>Every formula is clinically tested and approved by certified dermatologists for all skin types.</p>
+                    </div>
+                    <div class="why-card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="why-icon">
+                            <i class="fa-solid fa-paw"></i>
+                        </div>
+                        <h3>Cruelty-Free</h3>
+                        <p>We are proudly cruelty-free. None of our products are tested on animals — ever.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SECTION 2: CUSTOMER REVIEWS ===== -->
+        <section class="shop-reviews-section">
+            <div class="shop-reviews-bg-blob"></div>
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>What Our Customers Say</h2>
+                    <p>Real glow, real stories — from real people</p>
+                </div>
+                <div class="reviews-grid">
+                    <div class="review-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="review-text">"The Illuminating Rose Serum has completely transformed my skin. I've never felt more confident without makeup. Absolutely love this brand!"</p>
+                        <div class="reviewer">
+                            <div class="reviewer-avatar" style="background: linear-gradient(135deg,#f7cac9,#e8a598);">S</div>
+                            <div>
+                                <div class="reviewer-name">Sophia R.</div>
+                                <div class="reviewer-label">Verified Buyer · Skincare</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="review-text">"I ordered the Signature Floral Perfume and it lasted all day! The packaging was so luxurious — felt like opening a gift. 10/10 would recommend."</p>
+                        <div class="reviewer">
+                            <div class="reviewer-avatar" style="background: linear-gradient(135deg,#c8977b,#a87060);">A</div>
+                            <div>
+                                <div class="reviewer-name">Aisha M.</div>
+                                <div class="reviewer-label">Verified Buyer · Fragrance</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                        </div>
+                        <p class="review-text">"The Deep Hydration Cream is a game changer for my dry skin. It's rich but not greasy. Fast delivery and great customer support too!"</p>
+                        <div class="reviewer">
+                            <div class="reviewer-avatar" style="background: linear-gradient(135deg,#b0c4de,#8aabcf);">P</div>
+                            <div>
+                                <div class="reviewer-name">Priya K.</div>
+                                <div class="reviewer-label">Verified Buyer · Skincare</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="review-text">"Stackly's makeup range is incredible. The Velvet Matte Lipstick stayed on for 8 hours through eating and everything. Such a find!"</p>
+                        <div class="reviewer">
+                            <div class="reviewer-avatar" style="background: linear-gradient(135deg,#d4a8d0,#b87ab5);">L</div>
+                            <div>
+                                <div class="reviewer-name">Layla T.</div>
+                                <div class="reviewer-label">Verified Buyer · Makeup</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reviews-stats" data-aos="fade-up">
+                    <div class="stat-item">
+                        <span class="stat-number">4.9</span>
+                        <div class="stat-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <span class="stat-label">Average Rating</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">12,400+</span>
+                        <span class="stat-label">Happy Customers</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">Would Recommend</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SECTION 3: BEAUTY TIPS BANNER ===== -->
+        <section class="beauty-tips-section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Beauty Tips & Routines</h2>
+                    <p>Expert advice to help you get the most out of your products</p>
+                </div>
+                <div class="tips-grid">
+                    <div class="tip-card tip-card--large" data-aos="fade-right">
+                        <div class="tip-card-img" style="background: linear-gradient(135deg, #f7cac9 0%, #e8a598 100%);">
+                            <i class="fa-solid fa-sun tip-card-icon"></i>
+                        </div>
+                        <div class="tip-card-body">
+                            <span class="tip-tag">Morning Routine</span>
+                            <h3>The Perfect AM Skincare Routine</h3>
+                            <p>Start with a gentle cleanser, follow with a Vitamin C serum, layer your moisturizer, and always finish with SPF 50. 5 minutes every morning for radiant, protected skin all day.</p>
+                            <a href="blog.html" class="tip-read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="tip-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="tip-card-img" style="background: linear-gradient(135deg, #2e2e2e 0%, #4a3728 100%);">
+                            <i class="fa-solid fa-moon tip-card-icon"></i>
+                        </div>
+                        <div class="tip-card-body">
+                            <span class="tip-tag">Night Routine</span>
+                            <h3>PM Repair & Restore Routine</h3>
+                            <p>Double cleanse, apply retinol serum, and seal with a rich night cream. Let your skin recover while you sleep.</p>
+                            <a href="blog.html" class="tip-read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="tip-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="tip-card-img" style="background: linear-gradient(135deg, #c8977b 0%, #a87060 100%);">
+                            <i class="fa-solid fa-droplet tip-card-icon"></i>
+                        </div>
+                        <div class="tip-card-body">
+                            <span class="tip-tag">Hydration</span>
+                            <h3>How to Hydrate Dry Skin Fast</h3>
+                            <p>Layer a hyaluronic acid serum under your moisturizer on damp skin. Add a facial oil to lock in moisture overnight.</p>
+                            <a href="blog.html" class="tip-read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <style>
+        /* === WHY CHOOSE US === */
+        .shop-why-section {
+            padding: 90px 0;
+            background: #fff;
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 50px;
+        }
+        @media(max-width: 900px) { .why-grid { grid-template-columns: repeat(2,1fr); } }
+        @media(max-width: 560px) { .why-grid { grid-template-columns: 1fr; } }
+
+        .why-card {
+            background: #fdf8f4;
+            border-radius: 16px;
+            padding: 36px 28px;
+            text-align: center;
+            border: 1px solid rgba(200,155,123,0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .why-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(200,155,123,0.18);
+        }
+        .why-icon {
+            width: 64px; height: 64px;
+            background: linear-gradient(135deg, #c8977b, #a87060);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+        .why-card h3 {
+            font-family: var(--font-heading, 'Playfair Display', serif);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--color-black, #1a1a1a);
+        }
+        .why-card p { font-size: 0.88rem; color: #666; line-height: 1.7; }
+
+        /* === REVIEWS === */
+        .shop-reviews-section {
+            padding: 90px 0;
+            background: #fdf8f4;
+            position: relative;
+            overflow: hidden;
+        }
+        .shop-reviews-bg-blob {
+            position: absolute;
+            top: -150px; right: -150px;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(200,155,123,0.1), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 50px;
+        }
+        @media(max-width: 1100px) { .reviews-grid { grid-template-columns: repeat(2,1fr); } }
+        @media(max-width: 600px) { .reviews-grid { grid-template-columns: 1fr; } }
+
+        .review-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 28px 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(200,155,123,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(200,155,123,0.15);
+        }
+        .review-stars { color: #f4a100; font-size: 0.9rem; letter-spacing: 2px; }
+        .review-text {
+            font-size: 0.87rem;
+            color: #555;
+            line-height: 1.7;
+            flex: 1;
+            font-style: italic;
+        }
+        .reviewer { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+        .reviewer-avatar {
+            width: 42px; height: 42px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1rem; color: #fff;
+            flex-shrink: 0;
+        }
+        .reviewer-name { font-weight: 600; font-size: 0.88rem; color: #1a1a1a; }
+        .reviewer-label { font-size: 0.75rem; color: #999; }
+        .reviews-stats {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 60px;
+            padding: 36px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+        }
+        @media(max-width: 700px) { .reviews-stats { flex-direction: column; gap: 24px; } .stat-divider { display: none; } }
+        .stat-item { text-align: center; }
+        .stat-number {
+            display: block;
+            font-size: 2.4rem;
+            font-weight: 700;
+            font-family: var(--font-heading, 'Playfair Display', serif);
+            color: var(--color-rose-gold, #c8977b);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+        .stat-stars { color: #f4a100; font-size: 0.85rem; margin-bottom: 4px; }
+        .stat-label { font-size: 0.82rem; color: #888; }
+        .stat-divider { width: 1px; height: 60px; background: #eee; }
+
+        /* === BEAUTY TIPS === */
+        .beauty-tips-section {
+            padding: 90px 0;
+            background: #fff;
+        }
+        .tips-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 24px;
+            margin-top: 50px;
+        }
+        @media(max-width: 1000px) { .tips-grid { grid-template-columns: 1fr 1fr; } .tip-card--large { grid-column: 1/-1; } }
+        @media(max-width: 600px) { .tips-grid { grid-template-columns: 1fr; } }
+
+        .tip-card {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(200,155,123,0.1);
+        }
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px rgba(200,155,123,0.18);
+        }
+        .tip-card--large { flex-direction: row; }
+        @media(max-width: 1000px) { .tip-card--large { flex-direction: column; } }
+
+        .tip-card-img {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+            flex: 0 0 200px;
+        }
+        .tip-card--large .tip-card-img { flex: 0 0 220px; min-height: auto; }
+
+        .tip-card-icon {
+            font-size: 3rem;
+            color: rgba(255,255,255,0.85);
+        }
+        .tip-card-body {
+            padding: 28px 24px;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+        }
+        .tip-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(200,155,123,0.12);
+            color: var(--color-rose-gold, #c8977b);
+            border-radius: 50px;
+            font-size: 0.73rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .tip-card-body h3 {
+            font-family: var(--font-heading, 'Playfair Display', serif);
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            margin: 0;
+            line-height: 1.4;
+        }
+        .tip-card--large .tip-card-body h3 { font-size: 1.35rem; }
+        .tip-card-body p {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.7;
+            flex: 1;
+        }
+        .tip-read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.83rem;
+            font-weight: 600;
+            color: var(--color-rose-gold, #c8977b);
+            text-decoration: none;
+            margin-top: 6px;
+            transition: gap 0.2s ease;
+        }
+        .tip-read-more:hover { gap: 12px; color: #a87060; }
+        </style>
+
+    </main>
+
+    <!-- Premium Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>Stackly</h4>
+                    <p>Experience the luxury of nature with our premium skincare collections crafted for your inner glow.</p>
+                    <div class="social-links" style="margin-top: 1rem; display: flex; gap: 1rem;">
+                        <a href="404.html"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-pinterest-p"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="404.html">Our Experts</a></li>
+                        <li><a href="404.html">Careers</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="404.html">FAQ</a></li>
+                        <li><a href="404.html">Shipping Policy</a></li>
+                        <li><a href="404.html">Return Policy</a></li>
+                        <li><a href="404.html">Track Order</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">SUBSCRIBE</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Stackly. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom JS -->
+    
+    <!-- ===== GLOBAL SEARCH OVERLAY ===== -->
+    <div class="search-overlay" id="globalSearchOverlay">
+        <div class="search-modal">
+            <button class="search-close" id="searchClose"><i class="fa-solid fa-xmark"></i></button>
+            <h2>What are you looking for?</h2>
+            <form id="globalSearchForm">
+                <div class="search-input-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Search for products, categories, or brands..." required>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+            <div class="search-suggestions">
+                <span>Popular:</span>
+                <a href="shop.html?q=serum">Vitamin C Serum</a>
+                <a href="shop.html?q=cream">Hydrating Cream</a>
+                <a href="shop.html?q=vegan">Vegan Beauty</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ADVANCED QUICK VIEW MODAL ===== -->
+    <div class="qv-overlay" id="quickViewOverlay">
+        <div class="qv-modal advanced-qv" id="quickViewModal">
+            <button class="qv-close" id="qvClose"><i class="fa-solid fa-xmark"></i></button>
+            <div class="qv-grid">
+                <div class="qv-img-container">
+                    <img id="qvImage" src="" alt="Product">
+                    <span class="qv-badge">In Stock</span>
+                </div>
+                <div class="qv-details">
+                    <div class="qv-rating" id="qvRating">4.8 <i class="fa-solid fa-star"></i> (124 Reviews)</div>
+                    <h2 id="qvTitle">Product Name</h2>
+                    <h3 id="qvPrice">$0.00</h3>
+                    <p class="qv-desc" id="qvDesc">Description</p>
+                    <div class="qv-meta">
+                        <p><strong>Ingredients:</strong> <span id="qvIngredients">Hyaluronic Acid, Vitamin C, Rose Extract</span></p>
+                        <p><strong>SKU:</strong> STK-<span id="qvSku">10294</span></p>
+                    </div>
+                    <div class="qv-actions-row">
+                        <div class="qv-qty">
+                            <button id="qvQtyDec">-</button>
+                            <input type="number" id="qvQtyInput" value="1" min="1">
+                            <button id="qvQtyInc">+</button>
+                        </div>
+                        <button class="btn btn-primary add-to-cart-back" id="qvCartBtn" style="flex:1;">Add to Cart</button>
+                        <button class="btn btn-secondary qv-wish-btn" id="qvWishBtn" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/global-features.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- Shop Filtering & Pagination Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Enhanced Premium Product Data
+            const products = [
+                { id: 1, name: "Illuminating Rose Serum", price: 85, originalPrice: null, category: "skincare", rating: 4.9, reviews: 342, badge: "Best Seller", shortDesc: "Packed with Vitamin C and rose extract for a luminous glow.", img: "images/prod_serum.webp" },
+                { id: 2, name: "Deep Hydration Cream", price: 55, originalPrice: 65, category: "skincare", rating: 4.7, reviews: 128, badge: "-15%", shortDesc: "Ultra-rich moisturizer locking in hydration for 24 hours.", img: "images/prod_cream.webp" },
+                { id: 3, name: "Botanical Cleansing Oil", price: 42, originalPrice: null, category: "skincare", rating: 4.8, reviews: 95, badge: "New", shortDesc: "Gently melts away waterproof makeup and impurities.", img: "images/prod_oil.webp" },
+                { id: 4, name: "Exfoliating Body Polish", price: 38, originalPrice: 45, category: "bodycare", rating: 4.6, reviews: 210, badge: "-15%", shortDesc: "Luxurious sugar scrub infused with natural oils.", img: "images/image_15.webp" },
+                { id: 5, name: "Signature Floral Perfume", price: 120, originalPrice: null, category: "fragrance", rating: 5.0, reviews: 450, badge: "Best Seller", shortDesc: "A sophisticated blend of jasmine, rose, and amber.", img: "images/hero_model_perfume.png" },
+                { id: 6, name: "Velvet Matte Lipstick", price: 32, originalPrice: null, category: "makeup", rating: 4.5, reviews: 89, badge: null, shortDesc: "Highly pigmented matte color that won't dry your lips.", img: "images/hero_model_lipstick.png" },
+                { id: 7, name: "Luminous Foundation", price: 48, originalPrice: 60, category: "makeup", rating: 4.7, reviews: 312, badge: "-20%", shortDesc: "Medium-coverage foundation for a natural dewy finish.", img: "images/hero_model_foundation.png" },
+                { id: 8, name: "Precision Eyeliner Pen", price: 24, originalPrice: null, category: "makeup", rating: 4.8, reviews: 156, badge: "New", shortDesc: "Waterproof, smudge-proof liquid eyeliner for sharp wings.", img: "images/hero_model_eyeliner.png" },
+                { id: 9, name: "Nourishing Hair Oil", price: 45, originalPrice: null, category: "haircare", rating: 4.9, reviews: 201, badge: "Limited Edition", shortDesc: "Argan and jojoba oil blend for silky, frizz-free hair.", img: "images/cat_hair.png" },
+                { id: 10, name: "Rose Quartz Roller", price: 25, originalPrice: 35, category: "accessories", rating: 4.6, reviews: 88, badge: "-28%", shortDesc: "Soothes skin and reduces morning puffiness.", img: "images/cat_tools.png" },
+                { id: 11, name: "Ocean Breeze Mist", price: 95, originalPrice: null, category: "fragrance", rating: 4.8, reviews: 140, badge: null, shortDesc: "A refreshing, aquatic body mist for everyday wear.", img: "images/cat_fragrance.png" },
+                { id: 12, name: "Gentle Body Wash", price: 28, originalPrice: null, category: "bodycare", rating: 4.7, reviews: 112, badge: null, shortDesc: "Sulfate-free body wash with calming chamomile.", img: "images/cat_bodycare.png" }
+            ];
+
+            const grid = document.getElementById('product-grid');
+            const countEl = document.getElementById('product-count');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const searchInput = document.getElementById('shopSearchInput');
+            const sortSelect = document.getElementById('sort-select');
+
+            let currentCategory = 'all';
+            let searchQuery = '';
+            let currentSort = 'featured';
+
+            // Check URL for search query from Global Search
+            const urlParams = new URLSearchParams(window.location.search);
+            const qParam = urlParams.get('q');
+            if(qParam) {
+                searchQuery = qParam.toLowerCase();
+                searchInput.value = qParam;
+            }
+
+            function render() {
+                // Filter
+                let filtered = products.filter(p => {
+                    const matchCat = currentCategory === 'all' || p.category === currentCategory;
+                    const matchSearch = p.name.toLowerCase().includes(searchQuery) || p.shortDesc.toLowerCase().includes(searchQuery);
+                    return matchCat && matchSearch;
+                });
+
+                // Sort
+                if(currentSort === 'lowToHigh') {
+                    filtered.sort((a,b) => a.price - b.price);
+                } else if(currentSort === 'highToLow') {
+                    filtered.sort((a,b) => b.price - a.price);
+                } else if(currentSort === 'bestseller') {
+                    filtered = filtered.filter(p => p.badge === 'Best Seller').concat(filtered.filter(p => p.badge !== 'Best Seller'));
+                } else if(currentSort === 'new') {
+                    filtered = filtered.filter(p => p.badge === 'New').concat(filtered.filter(p => p.badge !== 'New'));
+                }
+
+                // Render DOM
+                grid.innerHTML = '';
+                countEl.textContent = `Showing ${filtered.length} result${filtered.length !== 1 ? 's' : ''}`;
+
+                if(filtered.length === 0) {
+                    grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #888;">No products found matching your criteria.</div>';
+                    return;
+                }
+
+                filtered.forEach(p => {
+                    const priceHTML = p.originalPrice 
+                        ? `<span class="price">$${p.price.toFixed(2)}</span> <span class="original-price">$${p.originalPrice.toFixed(2)}</span>`
+                        : `<span class="price">$${p.price.toFixed(2)}</span>`;
+
+                    let badgeHTML = '';
+                    if(p.badge) {
+                        let bClass = 'badge';
+                        if(p.badge === 'New') bClass += ' new';
+                        else if(p.badge.includes('%')) bClass += ' discount';
+                        badgeHTML = `<span class="${bClass}">${p.badge}</span>`;
+                    }
+
+                    const isWished = window.WishlistManager && window.WishlistManager.hasItem(p.name.replace(/\s+/g, '-').toLowerCase());
+                    const wishClass = isWished ? 'wished' : '';
+                    const wishIcon = isWished ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+                    const wishColor = isWished ? 'style="color: #e53935;"' : '';
+
+                    const card = document.createElement('div');
+                    card.className = 'premium-card';
+                    card.dataset.name = p.name;
+                    card.dataset.price = '$' + p.price.toFixed(2);
+                    card.dataset.img = p.img;
+                    card.dataset.desc = p.shortDesc;
+                    card.dataset.rating = p.rating;
+                    card.dataset.reviews = p.reviews;
+
+                    card.innerHTML = `
+                        <div class="product-img-wrapper">
+                            ${badgeHTML}
+                            <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='images/cat_skincare.png'">
+                            <div class="product-actions">
+                                <button title="Quick View"><i class="fa-regular fa-eye"></i></button>
+                                <button title="Add to Wishlist" class="${wishClass}" ${wishColor}><i class="${wishIcon}"></i></button>
+                                
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="category-tag">${p.category}</span>
+                            <h3>${p.name}</h3>
+                            <div class="rating">
+                                ${p.rating} <i class="fa-solid fa-star"></i> <span>(${p.reviews})</span>
+                            </div>
+                            <p class="short-desc">${p.shortDesc}</p>
+                            <div class="price-row">
+                                ${priceHTML}
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn btn-primary add-to-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                                <button class="btn btn-buy"><i class="fa-solid fa-bolt"></i> Buy Now</button>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+
+                // Refresh AOS
+                if(typeof AOS !== 'undefined') AOS.refresh();
+            }
+
+            // Events
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentCategory = btn.dataset.filter;
+                    render();
+                });
+            });
+
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase();
+                render();
+            });
+
+            sortSelect.addEventListener('change', (e) => {
+                currentSort = e.target.value;
+                render();
+            });
+
+            render();
+        });
+    </script>
+
+    
+</body>
+</html>
+
+

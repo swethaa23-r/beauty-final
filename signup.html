@@ -1,0 +1,515 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Stackly - Sign Up for exclusive beauty rewards">
+    <title>Create Account | Stackly</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css?v=2">
+    <link rel="stylesheet" href="assets/css/animations.css?v=2">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body, html {
+            font-family: var(--font-body);
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* â”€â”€ Cinematic Background (same as login) â”€â”€ */
+        .signup-bg-zoom {
+            position: fixed;
+            top: -5%; left: -5%;
+            width: 110%; height: 110%;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)),
+                        url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            z-index: -2;
+            animation: slowZoom 30s infinite alternate linear;
+        }
+        @keyframes slowZoom {
+            0%   { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+
+        /* Floating particles placeholder */
+        #particles-js {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+        }
+
+        /* â”€â”€ Main Container â”€â”€ */
+        .signup-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px 40px;
+        }
+
+        /* â”€â”€ Glassmorphism Card â”€â”€ */
+        .glass-signup-card {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 24px;
+            padding: 40px 36px;
+            width: 100%;
+            max-width: 90%; width: 520px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        /* â”€â”€ Header â”€â”€ */
+        .auth-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .auth-header .brand-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--color-rose-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+            font-size: 1.3rem;
+            color: #fff;
+        }
+        .auth-header h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .auth-header p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+        }
+
+        /* â”€â”€ Form Elements â”€â”€ */
+        .form-group { margin-bottom: 18px; }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        @media (max-width: 480px) {
+            .form-row { grid-template-columns: 1fr; }
+            .glass-signup-card { padding: 30px 22px; }
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 500;
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 0.4px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 13px 15px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: #fff;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .form-control::placeholder { color: rgba(255,255,255,0.55); }
+        .form-control:focus {
+            background: rgba(255,255,255,0.18);
+            border-color: rgba(255,255,255,0.8);
+            box-shadow: 0 0 15px rgba(255,255,255,0.15);
+            transform: translateY(-1px);
+        }
+        .form-control.error {
+            border-color: #ff5252;
+            background: rgba(255,82,82,0.1);
+        }
+
+        /* Password toggle */
+        .pwd-wrapper { position: relative; }
+        .toggle-pwd {
+            position: absolute;
+            right: 14px; top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: rgba(255,255,255,0.6);
+            transition: color 0.3s;
+        }
+        .toggle-pwd:hover { color: #fff; }
+
+        /* Error messages */
+        .error-msg {
+            color: #ff8a80;
+            font-size: 0.78rem;
+            margin-top: 4px;
+            display: none;
+        }
+
+        /* Terms checkbox */
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: rgba(255,255,255,0.85);
+            font-size: 0.88rem;
+            margin-bottom: 22px;
+            line-height: 1.5;
+        }
+        .terms-checkbox input {
+            accent-color: var(--color-rose-gold);
+            margin-top: 3px;
+            width: 15px; height: 15px;
+            flex-shrink: 0;
+        }
+        .terms-checkbox a {
+            color: var(--color-rose-gold);
+            text-decoration: underline;
+        }
+
+        /* Submit button */
+        .btn-signup {
+            width: 100%;
+            padding: 15px;
+            background: var(--color-rose-gold);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+        }
+        .btn-signup:hover {
+            background: #b58564;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(200,155,123,0.4);
+        }
+        .btn-signup:active { transform: translateY(0); }
+
+        /* Divider */
+        .or-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 22px 0;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.82rem;
+        }
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Social buttons */
+        .social-btn-group { display: flex; gap: 12px; }
+        .social-btn {
+            flex: 1;
+            padding: 11px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: #fff;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .social-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .btn-google   { background: rgba(219,68,55,0.85); }
+        .btn-facebook { background: rgba(66,103,178,0.85); }
+        .btn-apple    { background: rgba(0,0,0,0.75); }
+
+        /* Login link */
+        .login-link {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 0.92rem;
+            color: rgba(255,255,255,0.8);
+        }
+        .login-link a {
+            color: #fff;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+        .login-link a:hover { color: var(--color-rose-gold); }
+
+        /* Back to home */
+        .back-home {
+            position: fixed;
+            top: 24px; left: 24px;
+            color: rgba(255,255,255,0.85);
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 100;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .back-home:hover { color: var(--color-rose-gold); }
+
+        /* Success message */
+        .success-msg {
+            display: none;
+            color: #a5d6a7;
+            background: rgba(76,175,80,0.15);
+            border: 1px solid rgba(76,175,80,0.3);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.9rem;
+        }
+
+        /* Slide-in animation */
+        .slide-in {
+            animation: slideInUp 0.6s cubic-bezier(0.16,1,0.3,1) both;
+            opacity: 0;
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .d1 { animation-delay: 0.05s; }
+        .d2 { animation-delay: 0.12s; }
+        .d3 { animation-delay: 0.19s; }
+        .d4 { animation-delay: 0.26s; }
+        .d5 { animation-delay: 0.33s; }
+        .d6 { animation-delay: 0.40s; }
+        .d7 { animation-delay: 0.47s; }
+    
+        /* Header Overrides */
+        header {
+            background: transparent;
+            position: absolute;
+            width: 100%;
+            z-index: 100;
+            top: 0;
+            left: 0;
+        }
+        header.scrolled {
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+        }
+        header .nav-links li a, header .nav-icons span {
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        header.scrolled .nav-links li a, header.scrolled .nav-icons span {
+            color: var(--color-black);
+            text-shadow: none;
+        }
+        header .nav-links li a.active {
+            color: var(--color-rose-gold);
+        }
+</style>
+    <link rel="stylesheet" href="assets/css/candy.css">
+    <script src="assets/js/header.js"></script>
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/responsive-fixes.css">
+</head>
+<body>
+
+    <!-- Cinematic Background -->
+    <div class="signup-bg-zoom"></div>
+    <div id="particles-js"></div>
+    <stackly-header></stackly-header>
+
+
+    <!-- Back to Home -->
+    <a href="index.html" class="back-home">
+        <i class="fa-solid fa-arrow-left"></i> Back to Home
+    </a>
+
+    <!-- Main Content -->
+    <div class="signup-container">
+        <div class="glass-signup-card">
+
+            <!-- Header -->
+            <div class="auth-header slide-in d1">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-leaf"></i>
+                </div>
+                <h1>Create Account</h1>
+                <p>Join Stackly for exclusive beauty rewards &amp; early access.</p>
+            </div>
+
+            <!-- Social Sign Up -->
+            <div class="social-btn-group slide-in d2">
+                <button class="social-btn btn-google" onclick="window.CartManager && window.CartManager.showToast('Google sign-up coming soon!','success')">
+                    <i class="fa-brands fa-google"></i> Google
+                </button>
+                <button class="social-btn btn-facebook" onclick="window.CartManager && window.CartManager.showToast('Facebook sign-up coming soon!','success')">
+                    <i class="fa-brands fa-facebook-f"></i> Facebook
+                </button>
+                <button class="social-btn btn-apple" onclick="window.CartManager && window.CartManager.showToast('Apple sign-up coming soon!','success')">
+                    <i class="fa-brands fa-apple"></i> Apple
+                </button>
+            </div>
+
+            <div class="or-divider slide-in d3">or sign up with email</div>
+
+            <!-- Signup Form -->
+            <form id="signupForm" novalidate>
+
+                <!-- Full Name -->
+                <div class="form-group slide-in d3">
+                    <label class="form-label" for="name">Full Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Jane Doe" autocomplete="name">
+                    <div class="error-msg" id="nameError">Please enter your full name (min 2 characters).</div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group slide-in d4">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="jane@example.com" autocomplete="email">
+                    <div class="error-msg" id="emailError">Please enter a valid email address.</div>
+                </div>
+
+                <!-- Mobile -->
+                <div class="form-group slide-in d4">
+                    <label class="form-label" for="mobile">Mobile Number</label>
+                    <input type="tel" id="mobile" class="form-control" placeholder="9876543210" autocomplete="tel">
+                    <div class="error-msg" id="mobileError">Please enter a valid 10-digit mobile number.</div>
+                </div>
+
+                <!-- Password Row -->
+                <div class="form-row slide-in d5">
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <div class="pwd-wrapper">
+                            <input type="password" id="password" class="form-control" placeholder="Min 6 characters" autocomplete="new-password">
+                            <span class="toggle-pwd" onclick="togglePwd('password', this)"><i class="fa-regular fa-eye"></i></span>
+                        </div>
+                        <div class="error-msg" id="passwordError">Min 6 characters required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="confirmPassword">Confirm Password</label>
+                        <div class="pwd-wrapper">
+                            <input type="password" id="confirmPassword" class="form-control" placeholder="Repeat password" autocomplete="new-password">
+                            <span class="toggle-pwd" onclick="togglePwd('confirmPassword', this)"><i class="fa-regular fa-eye"></i></span>
+                        </div>
+                        <div class="error-msg" id="confirmPasswordError">Passwords do not match.</div>
+                    </div>
+                </div>
+
+                <!-- Terms -->
+                <label class="terms-checkbox slide-in d6">
+                    <input type="checkbox" id="terms">
+                    <span>I agree to the Stackly <a href="404.html">Terms of Service</a> and <a href="404.html">Privacy Policy</a>.</span>
+                </label>
+                <div class="error-msg" id="termsError" style="margin-top:-16px; margin-bottom:16px;">You must accept the terms to continue.</div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn-signup slide-in d7">
+                    <i class="fa-solid fa-sparkles" style="margin-right:8px;"></i> Create My Account
+                </button>
+
+                <div class="success-msg" id="signupSuccess">
+                    <i class="fa-solid fa-check-circle"></i> Account created! Redirecting to login...
+                </div>
+
+            </form>
+
+            <!-- Login redirect -->
+            <div class="login-link slide-in d7">
+                Already have an account? <a href="login.html">Sign In</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Password toggle
+        function togglePwd(fieldId, icon) {
+            const field = document.getElementById(fieldId);
+            const i = icon.querySelector('i');
+            if (field.type === 'password') {
+                field.type = 'text';
+                i.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                field.type = 'password';
+                i.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        // Signup Form Validation
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            // Helper
+            const validate = (id, errId, condition) => {
+                const el = document.getElementById(id);
+                const err = document.getElementById(errId);
+                if (condition(el)) {
+                    el.classList.add('error'); err.style.display = 'block'; isValid = false;
+                } else {
+                    el.classList.remove('error'); err.style.display = 'none';
+                }
+            };
+
+            validate('name', 'nameError', el => el.value.trim().length < 2);
+            validate('email', 'emailError', el => !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()));
+            validate('mobile', 'mobileError', el => !/^\d{10}$/.test(el.value.replace(/[\s\-()]/g, '')));
+            validate('password', 'passwordError', el => el.value.trim().length < 6);
+            validate('confirmPassword', 'confirmPasswordError', el =>
+                el.value.trim() !== document.getElementById('password').value.trim() || el.value.trim() === '');
+
+            const terms = document.getElementById('terms');
+            const termsError = document.getElementById('termsError');
+            if (!terms.checked) { termsError.style.display = 'block'; isValid = false; }
+            else { termsError.style.display = 'none'; }
+
+            if (isValid) {
+                const btn = this.querySelector('.btn-signup');
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating account...';
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    document.getElementById('signupSuccess').style.display = 'block';
+                    setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+                }, 1200);
+            }
+        });
+    </script>
+
+
+    
+</body>
+</html>
+

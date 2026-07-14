@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Stackly - Page Not Found">
+    <title>404 Not Found | Stackly</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css?v=2">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+
+        .error-page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: var(--spacing-xl) 20px;
+            box-sizing: border-box;
+        }
+
+        .error-content h1 {
+            font-size: 6rem;
+            color: var(--color-rose-gold);
+            line-height: 1;
+            margin-bottom: 15px;
+            font-family: var(--font-heading);
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .error-content h2 {
+            font-size: 1.5rem;
+            color: var(--color-black);
+            margin-bottom: 15px;
+        }
+
+        .error-content p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            max-width: 90%; width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .error-image {
+            max-width: 50%; width: 200px;
+            margin: 0 auto 20px;
+            display: block;
+            border-radius: 50%;
+            border: 5px solid var(--color-beige);
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/candy.css">
+    <script src="assets/js/header.js"></script>
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/responsive-fixes.css">
+</head>
+<body>
+    <stackly-header></stackly-header>
+
+
+    <!-- Main Content -->
+    <main>
+        <section class="error-page-wrapper">
+            <div class="error-content" data-aos="fade-up">
+                <img loading="lazy" src="images/hero_model_lipstick.png" alt="Beauty 404 Illustration" class="error-image" onerror="this.onerror=null;this.src='images/hero_model_lipstick.png'">
+                <h1>404</h1>
+                <h2>Oops! Page Not Found</h2>
+                <p>The page you are looking for doesn't exist or has been moved.</p>
+                <a href="index.html" class="btn btn-primary"><i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i> Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+        });
+    </script>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>Stackly</h4>
+                    <p>Experience the luxury of nature with our premium skincare collections crafted for your inner glow.</p>
+                    <div class="social-links" style="margin-top: 1rem; display: flex; gap: 1rem;">
+                        <a href="404.html"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-pinterest-p"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="404.html">Our Experts</a></li>
+                        <li><a href="404.html">Careers</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="404.html">FAQ</a></li>
+                        <li><a href="404.html">Shipping Policy</a></li>
+                        <li><a href="404.html">Return Policy</a></li>
+                        <li><a href="404.html">Track Order</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">SUBSCRIBE</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Stackly. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    
+</body>
+</html>
+
+
+
