@@ -8,6 +8,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.getElementById('sidebar');
     const sidebarToggle = document.getElementById('sidebarToggle');
     
+    // Create a mobile top header outside the sidebar to avoid containing block issues
+    if (sidebar && !document.getElementById('mobileTopHeader')) {
+        const header = document.createElement('div');
+        header.id = 'mobileTopHeader';
+        header.className = 'mobile-top-header';
+        
+        const logo = document.createElement('a');
+        logo.href = 'index.html';
+        logo.className = 'mobile-header-logo';
+        logo.innerHTML = '<img src="images/stackly_logo.webp" alt="Stackly Logo" style="height: 35px; width: auto;" onerror="this.onerror=null;this.innerHTML=\\\'Stackly\\\'">';
+        
+        const toggleBtn = document.createElement('button');
+        toggleBtn.id = 'mobileSidebarToggle';
+        toggleBtn.className = 'sidebar-toggle mobile-header-toggle';
+        toggleBtn.innerHTML = '<i class="fa-solid fa-bars-staggered"></i>';
+        
+        header.appendChild(logo);
+        header.appendChild(toggleBtn);
+        document.body.appendChild(header);
+        
+        toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            sidebar.classList.toggle('mobile-open');
+            
+            // Force visibility with inline styles to override any stubborn CSS bugs
+            if (sidebar.classList.contains('mobile-open')) {
+                sidebar.style.setProperty('transform', 'translateX(0)', 'important');
+                sidebar.style.setProperty('display', 'flex', 'important');
+            } else {
+                sidebar.style.setProperty('transform', 'translateX(-100%)', 'important');
+            }
+        });
+    }
+    
     if (sidebarToggle && sidebar) {
         sidebarToggle.addEventListener('click', () => {
             if (window.innerWidth <= 992) {
@@ -66,6 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Close sidebar on mobile after clicking
             if (window.innerWidth <= 992 && sidebar) {
                 sidebar.classList.remove('mobile-open');
+                // Force visibility styles off
+                sidebar.style.setProperty('transform', 'translateX(-100%)', 'important');
             }
         });
     });
@@ -109,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const btn = e.target.closest('button');
         if (btn) {
             // Ignore structural buttons with specific IDs (themeToggle, sidebarToggle)
-            if (btn.id === 'themeToggle' || btn.id === 'sidebarToggle') return;
+            if (btn.id === 'themeToggle' || btn.id === 'sidebarToggle' || btn.id === 'mobileSidebarToggle') return;
             
             // Ignore tab buttons or navigation elements if any
             if (btn.classList.contains('nav-item')) return;

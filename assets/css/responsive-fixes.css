@@ -579,3 +579,96 @@ section {
         aspect-ratio: 4/5;
     }
 }
+
+/* ==========================================================================
+   MOBILE AUDIT COMPLETE FIXES (Global Overrides)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* 1. Prevent Horizontal Scroll Globally */
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+
+    /* 2. Global Section Padding (Reduce side padding) */
+    .container, section, .section-padding {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    
+    .shop-container, .blog-container, .dashboard-container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    /* 3. Product Cards & Grids (1 per row) */
+    .product-grid, .category-grid, .shop-container, .article-grid, .dashboard-grid, .qv-grid, .cart-grid, .checkout-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+
+    /* Ensure product cards take full width */
+    .product-card, .category-card, .article-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
+
+    /* 4. Images */
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    /* 5. Touch Targets (Min 44px) */
+    .btn, button, .nav-links a, input[type="submit"], input[type="button"], select, .filter-btn {
+        min-height: 44px !important;
+        /* Note: display: inline-flex is removed to avoid breaking standard flow for block elements */
+    }
+    
+    .nav-links a {
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    /* Inputs need height */
+    input[type="text"], input[type="email"], input[type="password"], input[type="number"], textarea {
+        min-height: 44px !important;
+        font-size: 16px !important; /* Prevents iOS zoom */
+    }
+
+    /* 6. Typography Adjustments */
+    h1 { font-size: 2rem !important; }
+    h2 { font-size: 1.75rem !important; }
+    h3 { font-size: 1.5rem !important; }
+    h4 { font-size: 1.25rem !important; }
+    p { font-size: 1rem !important; line-height: 1.5 !important; }
+
+    /* 7. Footer Stack */
+    footer .container, .footer-top, .footer-links {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 20px !important;
+    }
+    
+    .footer-col {
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+
+    /* 8. Fix Modals & Forms */
+    .qv-modal, .login-container, .signup-container, .contact-container, .modal-content {
+        width: 95% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        padding: 20px !important;
+    }
+    
+    /* 9. Fix Header overlap */
+    .navbar {
+        padding: 10px 15px !important;
+    }
+}

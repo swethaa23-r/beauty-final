@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -110,7 +110,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 120px 20px 50px 20px; /* Accounts for header */
+            padding: 150px 20px 50px 20px; /* Increased top padding for header space */
             box-sizing: border-box;
         }
 
@@ -338,6 +338,57 @@
         .delay-4 { animation-delay: 0.4s; }
         .delay-5 { animation-delay: 0.5s; }
 
+        /* Mobile Login Overrides */
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 130px 15px 30px 15px !important;
+                align-items: flex-start !important;
+            }
+            .glass-login-card {
+                padding: 30px 20px !important;
+                max-width: 100% !important;
+                border-radius: 16px !important;
+            }
+            .auth-header h1 {
+                font-size: 1.8rem !important;
+            }
+            .flex-between {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .login-container {
+                padding: 120px 10px 20px 10px !important;
+                align-items: flex-start !important;
+            }
+            .glass-login-card {
+                padding: 25px 15px !important;
+            }
+            .auth-header h1 {
+                font-size: 1.5rem !important;
+                line-height: 1.2;
+                margin-bottom: 5px;
+            }
+            .auth-header p {
+                font-size: 0.85rem !important;
+                line-height: 1.4;
+            }
+            .form-control {
+                padding: 12px 10px !important;
+                font-size: 0.95rem !important;
+            }
+            .btn-login {
+                padding: 12px !important;
+                font-size: 1rem !important;
+            }
+            .social-btn-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
     </style>
     <link rel="stylesheet" href="assets/css/candy.css">
     <script src="assets/js/header.js"></script>
@@ -345,12 +396,6 @@
     <link rel="stylesheet" href="assets/css/responsive-fixes.css">
 </head>
 <body>
-
-    <!-- Premium Preloader -->
-    <div id="preloader">
-        <img src="images/stackly_logo.webp" alt="Stackly Logo" class="preloader-logo" onerror="this.onerror=null;this.src='images/prod_serum.webp'">
-        <div class="shimmer-loader"></div>
-    </div>
 
     <!-- Background Elements -->
     <div class="login-bg-zoom" id="parallax-bg"></div>
@@ -443,17 +488,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
     <script>
-        // Preloader Logic
+        // Init form display
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                const preloader = document.getElementById('preloader');
-                preloader.style.opacity = '0';
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                    // Trigger input animations
-                    document.querySelector('.glass-login-card').style.opacity = '1';
-                }, 500);
-            }, 1200);
+            document.querySelector('.glass-login-card').style.opacity = '1';
         });
 
         // Header Scroll Effect & Logo Color Shift
