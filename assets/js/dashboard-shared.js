@@ -151,6 +151,43 @@ function initDashboard() {
     }
 
     // 7. Generic Button Routing
+    
+    // 7.5 Generic Modal Injection & Logic
+    function createEyeModal() {
+        if (document.getElementById('dashboardEyeModalOverlay')) return;
+        
+        const overlay = document.createElement('div');
+        overlay.id = 'dashboardEyeModalOverlay';
+        overlay.className = 'dashboard-modal-overlay';
+        
+        overlay.innerHTML = `
+            <div class="dashboard-modal" id="dashboardEyeModal">
+                <button class="dashboard-modal-close" id="dashboardModalCloseBtn">&times;</button>
+                <h2 style="margin-top:0; font-family:var(--font-heading);">Details</h2>
+                <div style="margin-top: 20px;">
+                    <div style="margin-top: 10px; padding: 15px; background: rgba(200, 155, 123, 0.1); border-radius: 8px;">
+                        Additional detailed information for this record will be displayed here.
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(overlay);
+        
+        document.getElementById('dashboardModalCloseBtn').addEventListener('click', () => {
+            overlay.classList.remove('active');
+        });
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
+            }
+        });
+    }
+    
+    function openEyeModal() {
+        createEyeModal();
+        document.getElementById('dashboardEyeModalOverlay').classList.add('active');
+    }
+
     document.body.addEventListener('click', e => {
         const btn = e.target.closest('button');
         if (btn) {
@@ -159,6 +196,14 @@ function initDashboard() {
             
             // Ignore tab buttons or navigation elements if any
             if (btn.classList.contains('nav-item')) return;
+
+            // Check for eye icon first
+            if (btn.querySelector('.fa-eye')) {
+                e.preventDefault();
+                e.stopPropagation();
+                openEyeModal();
+                return;
+            }
 
             const text = btn.innerText.toLowerCase();
             
