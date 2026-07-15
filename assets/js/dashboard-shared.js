@@ -111,6 +111,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const storedName = localStorage.getItem('stackly_username') || 'Jane';
     const nameDisplays = document.querySelectorAll('.display-username');
     nameDisplays.forEach(el => el.textContent = storedName);
+    
+    // Dynamic Email Display
+    const storedEmail = localStorage.getItem('stackly_email') || 'jane@example.com';
+    const emailDisplays = document.querySelectorAll('.display-email');
+    emailDisplays.forEach(el => el.textContent = storedEmail);
+
+    const emailInputs = document.querySelectorAll('.profile-email-input');
+    emailInputs.forEach(el => el.value = storedEmail);
 
     const greetingDisplays = document.querySelectorAll('.display-greeting');
     const timeOfDay = new Date().getHours() < 12 ? 'Morning' : new Date().getHours() < 18 ? 'Afternoon' : 'Evening';
