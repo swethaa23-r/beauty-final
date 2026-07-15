@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -358,7 +358,11 @@
         });
 
         function renderCartPage() {
-            const cart = CartManager.getCart();
+            let cart = CartManager.getCart();
+            // Auto-heal: remove corrupted items
+            const originalLength = cart.length;
+            cart = cart.filter(item => item.price > 0 && item.img);
+            if (cart.length !== originalLength) { CartManager.saveCart(cart); }
             const itemsList = document.getElementById('cart-items-list');
             const summaryBox = document.getElementById('cart-summary');
             const emptyState = document.getElementById('empty-cart');
@@ -429,6 +433,7 @@
     
 </body>
 </html>
+
 
 
 

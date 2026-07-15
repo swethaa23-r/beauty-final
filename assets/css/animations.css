@@ -515,7 +515,7 @@
   font-weight: 400;
 }
 
-.add-to-cart {
+.product-card .add-to-cart {
   width: 100%;
   padding: 10px;
   font-size: 0.9rem;

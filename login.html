@@ -443,11 +443,6 @@
             
             <form id="loginForm" novalidate>
                 
-                <div class="form-group slide-in-up delay-1">
-                    <label class="form-label" for="username">Username</label>
-                    <input type="text" id="username" class="form-control" placeholder="Enter your username">
-                    <div class="error-msg" id="usernameError">Username is required (min 3 characters).</div>
-                </div>
 
                 <div class="form-group slide-in-up delay-1">
                     <label class="form-label" for="email">Email ID</label>
@@ -593,17 +588,7 @@
             
             let isValid = true;
             
-            // Username
-            const username = document.getElementById('username');
-            const usernameError = document.getElementById('usernameError');
-            if(username.value.trim().length < 3) {
-                username.classList.add('error');
-                usernameError.style.display = 'block';
-                isValid = false;
-            } else {
-                username.classList.remove('error');
-                usernameError.style.display = 'none';
-            }
+
 
             // Email
             const email = document.getElementById('email');
@@ -643,7 +628,7 @@
             }
 
             if(isValid) {
-                localStorage.setItem('stackly_username', username.value.trim());
+                // Username removed
                 localStorage.setItem('stackly_email', email.value.trim());
                 const successMsg = document.getElementById('loginSuccess');
                 successMsg.style.display = 'block';
