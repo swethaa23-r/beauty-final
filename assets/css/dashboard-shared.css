@@ -100,6 +100,36 @@ body {
     width: var(--sidebar-collapsed-width);
 }
 
+/* Handle collapsed sidebar profile and logo */
+.sidebar.collapsed .sidebar-header a {
+    display: flex !important;
+    width: 32px;
+    height: 35px;
+    overflow: hidden;
+    justify-content: flex-start;
+}
+.sidebar.collapsed .sidebar-header a img {
+    object-fit: cover;
+    object-position: left center;
+    min-width: 120px; /* Force the image to keep its aspect ratio so we only see the left part */
+}
+.sidebar.collapsed .sidebar-header {
+    padding: 0 10px !important;
+    justify-content: space-between !important;
+}
+.sidebar.collapsed > div:nth-child(2) {
+    padding: 15px 5px !important;
+}
+.sidebar.collapsed > div:nth-child(2) img {
+    width: 45px !important;
+    height: 45px !important;
+}
+.sidebar.collapsed .display-username,
+.sidebar.collapsed .display-email,
+.sidebar.collapsed > div:nth-child(2) span {
+    display: none !important;
+}
+
 .sidebar-header {
     height: var(--header-height);
     display: flex;
@@ -483,5 +513,14 @@ body {
     }
     .stat-card h2 {
         font-size: 1.4rem !important;
+    }
+}
+
+
+
+
+@media (max-width: 992px) {
+    .desktop-only-logo {
+        display: none !important;
     }
 }

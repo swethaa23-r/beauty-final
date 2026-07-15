@@ -2,7 +2,8 @@
    Stackly - Shared Dashboard JS
    ========================================= */
 
-document.addEventListener('DOMContentLoaded', () => {
+function initDashboard() {
+
     
     // 1. Sidebar Toggle
     const sidebar = document.getElementById('sidebar');
@@ -205,5 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         observer.observe(counter);
     });
+}
 
-});
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initDashboard); } else { initDashboard(); }
+
