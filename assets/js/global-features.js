@@ -279,23 +279,12 @@ function setupGlobalEventListeners() {
         const addCartBtn = e.target.closest('.add-to-cart');
         if (addCartBtn) {
             e.preventDefault(); e.stopPropagation();
-            if (addCartBtn.classList.contains('loading') || addCartBtn.classList.contains('success')) return;
             const card = addCartBtn.closest('.product-card, [data-name], .premium-card, .bs-product-card, .h-card');
             if (!card) return;
             
             const { name, priceStr, price, img, id } = extractProductData(card);
-
-            addCartBtn.classList.add('loading');
-            const originalHTML = addCartBtn.innerHTML;
-            addCartBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
-
-            setTimeout(() => {
-                addCartBtn.classList.remove('loading');
-                addCartBtn.classList.add('success');
-                addCartBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-                window.CartManager.addItem({ id, name, priceStr, price, img, qty: 1 });
-                window.location.href = 'cart.html';
-            }, 500);
+            window.CartManager.addItem({ id, name, priceStr, price, img, qty: 1 });
+            window.location.href = 'cart.html';
             return;
         }
 

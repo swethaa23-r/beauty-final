@@ -16,9 +16,9 @@ class StacklyHeader extends HTMLElement {
                 </ul>
 
                 <div class="nav-icons" style="display:flex; align-items:center;">
-                    <a href="cart.html" class="cart-icon" style="position:relative; margin-right:20px; color:var(--color-black); font-size: 1.2rem; display:flex; align-items:center;"><i class="fa-solid fa-cart-shopping"></i><span class="cart-badge" style="position:absolute; top:-12px; right:-12px; background:var(--color-rose-gold); color:white; font-size:0.7rem; border-radius:50%; width:18px; height:18px; display:flex; align-items:center; justify-content:center; font-weight:bold;">0</span></a>
-                    <a href="login.html" class="btn btn-secondary hide-on-mobile" style="padding: 8px 20px; font-size: 0.9rem; margin-right: 10px;">Login</a>
-                    <a href="signup.html" class="btn btn-primary hide-on-mobile" style="padding: 8px 20px; font-size: 0.9rem; margin-right: 15px;">Signup</a>
+                    <a href="cart.html" class="cart-icon" id="header-cart-icon" style="position:relative; margin-right:20px; color:var(--color-black); font-size: 1.2rem; display:flex; align-items:center;"><i class="fa-solid fa-cart-shopping"></i><span class="cart-badge" style="position:absolute; top:-12px; right:-12px; background:var(--color-rose-gold); color:white; font-size:0.7rem; border-radius:50%; width:18px; height:18px; display:flex; align-items:center; justify-content:center; font-weight:bold;">0</span></a>
+                    <a href="login.html" class="btn btn-secondary hide-on-mobile header-btn" style="padding: 8px 20px; font-size: 0.9rem; margin-right: 10px;">Login</a>
+                    <a href="signup.html" class="btn btn-primary hide-on-mobile header-btn" style="padding: 8px 20px; font-size: 0.9rem; margin-right: 15px;">Signup</a>
                     <div class="mobile-menu-btn hamburger-icon" aria-expanded="false" aria-label="Toggle navigation menu">
                         <span></span>
                         <span></span>
@@ -72,6 +72,26 @@ class StacklyHeader extends HTMLElement {
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && menu.classList.contains('active')) closeMenu();
             });
+
+            // Scroll effect
+            var headerEl = this.querySelector('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    headerEl.classList.add('scrolled');
+                } else {
+                    headerEl.classList.remove('scrolled');
+                }
+            });
+
+            // Expose a method to animate cart when item is added
+            window.animateCartIcon = () => {
+                const cartIcon = this.querySelector('#header-cart-icon');
+                if (cartIcon) {
+                    cartIcon.classList.remove('item-added');
+                    void cartIcon.offsetWidth; // trigger reflow
+                    cartIcon.classList.add('item-added');
+                }
+            };
         }, 0);
     }
 }
