@@ -193,10 +193,7 @@ body.no-scroll {
         display: none !important;
     }
 
-    /* ===== MOBILE-ONLY ITEMS ===== */
-    .mobile-only {
-        display: list-item !important;
-    }
+    /* MOBILE-ONLY ITEMS HANDLED BY HEADER.CSS */
 
     .nav-links li.mobile-only a.btn-candy {
         display: flex !important;
@@ -222,6 +219,30 @@ body.no-scroll {
     }
 }
 
+/* ===== EXTREME MOBILE (<= 480px) ===== */
+@media (max-width: 480px) {
+    .luxury-subscribe {
+        flex-direction: column !important;
+        border-radius: 8px !important;
+    }
+    .luxury-subscribe button[type="submit"] {
+        width: 100% !important;
+        border-radius: 8px !important;
+    }
+    .luxury-subscribe input[type="email"] {
+        width: 100% !important;
+        border-radius: 8px !important;
+    }
+    
+    .qv-actions-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+    .qv-wish-btn {
+        width: 100% !important;
+    }
+}
+
 /* ===== SMOOTH SCROLLING ===== */
 html {
     scroll-behavior: smooth;
@@ -233,12 +254,7 @@ section {
 }
 
 
-/* Hide mobile-only items on desktop */
-@media (min-width: 993px) {
-    .mobile-only {
-        display: none !important;
-    }
-}
+/* Desktop hiding handled by header.css */
 
 
 /* ===== PROFESSIONAL HAMBURGER MENU ===== */
@@ -560,23 +576,44 @@ section {
 
 /* Force Hero Product Image Visibility on Mobile */
 @media (max-width: 768px) {
+    .premium-hero {
+        height: auto !important;
+        min-height: auto !important;
+    }
+    .hero-slider-wrapper {
+        position: relative !important;
+        height: auto !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+    }
+    .hero-slide {
+        position: relative !important;
+        height: auto !important;
+        grid-area: 1 / 1 !important;
+    }
     .premium-hero .hero-col-visual,
     .premium-hero .hero-model-box {
         display: flex !important;
         visibility: visible !important;
         opacity: 1 !important;
-        z-index: 10 !important;
+        z-index: 2 !important;
     }
     .premium-hero .hero-col-visual {
-        min-height: 250px;
+        min-height: auto !important;
+        height: auto !important;
+        max-height: none !important;
         align-items: center;
         justify-content: center;
         margin-bottom: 20px;
+        padding-top: 20px;
     }
     .premium-hero .hero-model-box {
         height: auto !important;
         min-height: 200px;
         aspect-ratio: 4/5;
+        width: 60% !important;
+        max-width: 250px !important;
+        margin: 0 auto;
     }
 }
 
@@ -602,14 +639,27 @@ section {
     }
 
     /* 3. Product Cards & Grids (1 per row) */
-    .product-grid, .category-grid, .shop-container, .article-grid, .dashboard-grid, .qv-grid, .cart-grid, .checkout-grid {
+    .product-grid, .category-grid, .shop-container, .article-grid, .dashboard-grid, .qv-grid, .cart-grid, .checkout-grid, .bs-product-grid, .horizontal-cards, .blog-container {
         display: grid !important;
         grid-template-columns: 1fr !important;
         gap: 20px !important;
     }
 
+    .bs-product-grid {
+        animation: none !important;
+    }
+
+    .h-card {
+        flex-direction: column !important;
+    }
+
+    .h-card .h-img {
+        width: 100% !important;
+        flex: none !important;
+    }
+
     /* Ensure product cards take full width */
-    .product-card, .category-card, .article-card {
+    .product-card, .category-card, .article-card, .bs-product-card, .pro-category-card {
         width: 100% !important;
         max-width: 100% !important;
         margin: 0 auto !important;
@@ -670,5 +720,36 @@ section {
     /* 9. Fix Header overlap */
     .navbar {
         padding: 10px 15px !important;
+    }
+}
+
+
+
+
+/* Shop Filters Mobile Scroll */
+@media (max-width: 768px) {
+    .shop-filters {
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        padding-bottom: 5px;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        scrollbar-width: none; /* Firefox */
+    }
+    .shop-filters::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+    .filter-btn {
+        white-space: nowrap;
+        flex: 0 0 auto;
+    }
+    
+    .blog-container, .blog-main, .sidebar {
+        max-width: 100vw !important;
+        overflow: hidden;
+    }
+    .blog-main * {
+        max-width: 100%;
+        word-wrap: break-word;
     }
 }

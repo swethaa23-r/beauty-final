@@ -59,6 +59,7 @@ class StacklyHeader extends HTMLElement {
             }
 
             btn.addEventListener('click', function(e) {
+                console.log('Hamburger clicked!');
                 e.stopPropagation();
                 if (menu.classList.contains('active')) {
                     closeMenu();

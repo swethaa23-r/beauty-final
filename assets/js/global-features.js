@@ -10,82 +10,7 @@ function extractProductData(card) {
 }
 
 (function() {
-    // --------------------------------------------------------
-    // Mobile Menu Toggle
-    // --------------------------------------------------------
-    const btn = document.querySelector('.mobile-menu-btn');
-    const menu = document.querySelector('.nav-menu');
-    const overlay = document.querySelector('.menu-overlay');
-
-    if (btn && menu) {
-        const isOpen = () => menu.classList.contains('active');
-
-        const open = () => {
-            menu.classList.add('active');
-            btn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-            if(overlay) overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            setTimeout(() => {
-                document.addEventListener('touchmove', preventTouchScroll, { passive: false });
-                document.addEventListener('wheel', preventTouchScroll, { passive: false });
-            }, 0);
-        };
-
-        const close = () => {
-            menu.classList.remove('active');
-            btn.innerHTML = '<i class="fa-solid fa-bars"></i>';
-            if(overlay) overlay.classList.remove('active');
-            document.body.style.overflow = '';
-            
-            document.removeEventListener('touchmove', preventTouchScroll);
-            document.removeEventListener('wheel', preventTouchScroll);
-        };
-
-        const preventTouchScroll = (e) => {
-            if (!menu.contains(e.target)) {
-                e.preventDefault();
-            }
-        };
-
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            isOpen() ? close() : open();
-        });
-
-        if(overlay) overlay.addEventListener('click', close);
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && isOpen()) close();
-        });
-
-        menu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href') || '';
-
-                if (href.startsWith('#') && href !== '#') {
-                    e.preventDefault();
-                    close();
-                    const target = document.getElementById(href.slice(1));
-                    if (target) {
-                        setTimeout(() => {
-                            const offset = document.querySelector('header')?.offsetHeight || 80;
-                            const top = target.getBoundingClientRect().top + window.scrollY - offset;
-                            window.scrollTo({ top, behavior: 'smooth' });
-                        }, 320); 
-                    }
-                } else if (href === '#') {
-                    e.preventDefault();
-                    close();
-                } else {
-                    close();
-                }
-
-                menu.querySelectorAll('a').forEach(a => a.classList.remove('nav-active'));
-                link.classList.add('nav-active');
-            });
-        });
-    }
+// Legacy Mobile Menu Toggle removed to avoid conflicts with header.js
 })();
 
 // --------------------------------------------------------
@@ -242,12 +167,29 @@ window.QuickViewManager = {
                 }
             };
         }
+    },
+    close() {
+        const overlay = document.getElementById('quickViewOverlay');
+        if (overlay) overlay.classList.remove('active');
+    },
+    init() {
+        const closeBtn = document.getElementById('qvClose');
+        const overlay = document.getElementById('quickViewOverlay');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => this.close());
+        }
+        if (overlay) {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) this.close();
+            });
+        }
     }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
     window.CartManager.init();
     window.WishlistManager.init();
+    if(window.QuickViewManager.init) window.QuickViewManager.init();
     setupGlobalEventListeners();
     setupBackToTop();
 });

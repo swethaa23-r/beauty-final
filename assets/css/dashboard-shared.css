@@ -111,7 +111,7 @@ body {
 .sidebar.collapsed .sidebar-header a img {
     object-fit: cover;
     object-position: left center;
-    min-width: 120px; /* Force the image to keep its aspect ratio so we only see the left part */
+    min-width: min(100%, 120px); /* Force the image to keep its aspect ratio so we only see the left part */
 }
 .sidebar.collapsed .sidebar-header {
     padding: 0 10px !important;
@@ -569,3 +569,4 @@ body {
         display: none !important;
     }
 }
+

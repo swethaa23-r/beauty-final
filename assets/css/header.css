@@ -13,13 +13,13 @@ header {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease, transform 0.5s ease;
+    transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
     animation: slideDownHeader 0.8s ease-out forwards;
 }
 
 @keyframes slideDownHeader {
-    from { transform: translateY(-100%); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from { top: -120px; }
+    to { top: 0; }
 }
 
 header.scrolled, header.sticky {
@@ -177,11 +177,17 @@ header.scrolled .navbar {
 
 /* ===== MOBILE HEADER RESPONSIVENESS ===== */
 @media (max-width: 768px) {
+    /* Reduce logo size */
+    .logo img {
+        height: 22px !important;
+    }
+
     /* Mobile Menu Slide in from Right */
     .nav-links {
         position: fixed !important;
         top: 0 !important;
         right: -100% !important;
+        left: auto !important;
         width: 75% !important;
         max-width: 320px !important;
         height: 100vh !important;
@@ -306,3 +312,5 @@ header.scrolled .navbar {
     top: 8px;
     transform: rotate(-135deg);
 }
+
+

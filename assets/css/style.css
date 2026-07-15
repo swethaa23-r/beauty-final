@@ -308,8 +308,7 @@ header.scrolled {
   margin-bottom: var(--spacing-md);
   text-decoration: none;
 }
-.footer-logo img {
-  height: 45px;
+.footer-logo img { height: 32px;
   width: auto;
 }
 
@@ -604,7 +603,7 @@ html, body {
 }
 
 .product-grid, .wishlist-grid, .gallery-grid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
 }
 
 @media (max-width: 1024px) {
@@ -659,7 +658,7 @@ img {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background-color: var(--color-beige);
     z-index: 9999;
@@ -1516,7 +1515,7 @@ body:hover .custom-cursor {
     line-height: 1;
 }
 .cart-item-qty button:hover { background: var(--color-black); color: #fff; border-color: var(--color-black); }
-.cart-item-qty span { font-size: 0.85rem; font-weight: 600; min-width: 16px; text-align: center; }
+.cart-item-qty span { font-size: 0.85rem; font-weight: 600; min-width: min(100%, 16px); text-align: center; }
 .cart-item-remove {
     background: none;
     border: none;
@@ -2178,7 +2177,7 @@ body:hover .custom-cursor {
         width: 100%;
     }
 }
-.menu-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 9999; opacity: 0; visibility: hidden; transition: 0.4s ease; }
+.menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.5); z-index: 9999; opacity: 0; visibility: hidden; transition: 0.4s ease; }
 .menu-overlay.active { opacity: 1; visibility: visible; }
 body.no-scroll { overflow: hidden; }
 
@@ -2405,7 +2404,7 @@ body.no-scroll { overflow: hidden; }
 .product-actions button {
     width: 40px !important;
     height: 40px !important;
-    min-width: 40px !important;
+    min-width: min(100%, 40px) !important;
     min-height: 40px !important;
     padding: 0 !important;
     margin-bottom: 0 !important;
@@ -2447,7 +2446,7 @@ body.no-scroll { overflow: hidden; }
 .product-actions button {
     width: 40px !important;
     height: 40px !important;
-    min-width: 40px !important;
+    min-width: min(100%, 40px) !important;
     min-height: 40px !important;
     max-width: 40px !important;
     max-height: 40px !important;
@@ -2700,7 +2699,7 @@ body.no-scroll { overflow: hidden; }
 
 /* Product Card */
 .bs-product-card {
-    min-width: 280px;
+    min-width: min(100%, 280px);
     width: 280px;
     flex-shrink: 0;
     position: relative;
@@ -3154,3 +3153,5 @@ body.no-scroll { overflow: hidden; }
   50% { transform: translateY(-30px) rotate(15deg); }
   100% { transform: translateY(0px) rotate(0deg); }
 }
+
+
