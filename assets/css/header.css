@@ -178,8 +178,7 @@ header.scrolled .navbar {
 /* ===== MOBILE HEADER RESPONSIVENESS ===== */
 @media (max-width: 768px) {
     /* Reduce logo size */
-    .logo img {
-        height: 22px !important;
+    .logo img { height: 30px !important;
     }
 
     /* Mobile Menu Slide in from Right */
@@ -312,5 +311,6 @@ header.scrolled .navbar {
     top: 8px;
     transform: rotate(-135deg);
 }
+
 
 
