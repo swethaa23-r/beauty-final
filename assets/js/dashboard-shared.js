@@ -38,8 +38,10 @@ function initDashboard() {
             if (sidebar.classList.contains('mobile-open')) {
                 sidebar.style.setProperty('transform', 'translateX(0)', 'important');
                 sidebar.style.setProperty('display', 'flex', 'important');
+                document.body.style.overflow = 'hidden';
             } else {
                 sidebar.style.setProperty('transform', 'translateX(-100%)', 'important');
+                document.body.style.overflow = '';
             }
         });
     }
@@ -48,6 +50,11 @@ function initDashboard() {
         sidebarToggle.addEventListener('click', () => {
             if (window.innerWidth <= 992) {
                 sidebar.classList.toggle('mobile-open');
+                if (sidebar.classList.contains('mobile-open')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
             } else {
                 sidebar.classList.toggle('collapsed');
             }
@@ -102,6 +109,7 @@ function initDashboard() {
             // Close sidebar on mobile after clicking
             if (window.innerWidth <= 992 && sidebar) {
                 sidebar.classList.remove('mobile-open');
+                document.body.style.overflow = '';
                 // Force visibility styles off
                 sidebar.style.setProperty('transform', 'translateX(-100%)', 'important');
             }
