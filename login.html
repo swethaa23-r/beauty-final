@@ -25,7 +25,6 @@
         body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
             font-family: var(--font-body);
             overflow-x: hidden;
         }
@@ -82,49 +81,65 @@
 
         /* Header Overrides */
         header {
-            background: transparent;
-            position: absolute;
-            width: 100%;
-            z-index: 100;
+            background: transparent !important;
+            position: fixed !important;
+            top: 0 !important;
+            width: 100% !important;
+            z-index: 1000 !important;
+            transition: all 0.3s ease;
         }
         header.scrolled {
-            background: rgba(255,255,255,0.95);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
+            background: rgba(255,255,255,0.95) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
         }
-        header .nav-links li a, header .nav-icons span {
-            color: #fff;
+        
+        /* Default state (Not Scrolled) */
+        header:not(.scrolled) .nav-links li a, 
+        header:not(.scrolled) .nav-icons a,
+        header:not(.scrolled) .nav-icons span {
+            color: #fff !important;
             text-shadow: 0 1px 3px rgba(0,0,0,0.5);
         }
-        header.scrolled .nav-links li a, header.scrolled .nav-icons span {
-            color: var(--color-black);
+        header:not(.scrolled) .logo img {
+            filter: brightness(0) invert(1) !important;
+        }
+        
+        /* Scrolled state */
+        header.scrolled .nav-links li a, 
+        header.scrolled .nav-icons a,
+        header.scrolled .nav-icons span {
+            color: var(--color-black) !important;
             text-shadow: none;
         }
+        header.scrolled .logo img {
+            filter: none !important;
+        }
+        
         header .nav-links li a.active {
-            color: var(--color-rose-gold);
+            color: var(--color-rose-gold) !important;
         }
 
         /* Main Container */
         .login-container {
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 150px 20px 50px 20px; /* Increased top padding for header space */
+            flex-direction: column;
+            padding: 120px 20px 40px 20px; 
             box-sizing: border-box;
         }
 
         /* Glassmorphism Card */
         .glass-login-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
+            margin: auto;
+            background: rgba(20, 20, 20, 0.4);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
             padding: 40px;
             width: 100%;
             max-width: 90%; width: 450px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 0 0 1px rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
             color: #fff;
             position: relative;
             transform-style: preserve-3d;
@@ -135,14 +150,15 @@
             margin-bottom: 30px;
         }
         .auth-header h1 {
-            font-family: var(--font-heading);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-family: var(--font-body);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
             color: #fff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: -0.5px;
         }
         .auth-header p {
-            color: #eee;
+            color: #e0e0e0;
             font-size: 0.95rem;
         }
 
@@ -160,15 +176,25 @@
         .form-control {
             width: 100%;
             padding: 14px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
             font-family: var(--font-body);
             font-size: 1rem;
             color: #fff;
             outline: none;
             transition: all 0.3s;
             box-sizing: border-box;
+        }
+        
+        /* Autofill Override */
+        .form-control:-webkit-autofill,
+        .form-control:-webkit-autofill:hover, 
+        .form-control:-webkit-autofill:focus, 
+        .form-control:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px rgba(30, 30, 30, 0.6) inset !important;
+            -webkit-text-fill-color: white !important;
+            transition: background-color 5000s ease-in-out 0s;
         }
         .form-control::placeholder {
             color: rgba(255,255,255,0.6);
@@ -493,18 +519,19 @@
             document.querySelector('.glass-login-card').style.opacity = '1';
         });
 
-        // Header Scroll Effect & Logo Color Shift
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('mainHeader');
-            const logo = document.getElementById('headerLogo');
+        // Header Scroll Effect
+        const initScroll = () => {
+            const header = document.querySelector('header');
+            if (!header) return;
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
-                logo.style.filter = 'none'; // Revert back to original black/colored logo
             } else {
                 header.classList.remove('scrolled');
-                logo.style.filter = 'brightness(0) invert(1)'; // White logo on transparent
             }
-        });
+        };
+        window.addEventListener('scroll', initScroll);
+        // Run once on load to establish correct initial state
+        window.addEventListener('load', initScroll);
 
         // Particles.js Init (Soft Glowing Circles)
         particlesJS("particles-js", {

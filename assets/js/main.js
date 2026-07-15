@@ -124,10 +124,55 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // =============================================
-// RIPPLE EFFECT FOR CANDY BUTTON
+// MAGNETIC BUTTONS & RIPPLE EFFECT
 // =============================================
+document.addEventListener('DOMContentLoaded', () => {
+    // Magnetic Hover
+    const magnets = document.querySelectorAll('.btn, .btn-primary, .btn-secondary, .btn-login, button');
+    magnets.forEach(btn => {
+        // Prevent magnetic effect on mobile or very small elements
+        if (window.innerWidth < 768) return;
+        
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            // Requires GSAP
+            if (typeof gsap !== 'undefined') {
+                gsap.to(btn, {
+                    duration: 0.3,
+                    x: x * 0.25,
+                    y: y * 0.25,
+                    ease: 'power2.out'
+                });
+            }
+        });
+        
+        btn.addEventListener('mouseleave', () => {
+            if (typeof gsap !== 'undefined') {
+                gsap.to(btn, {
+                    duration: 0.5,
+                    x: 0,
+                    y: 0,
+                    ease: 'elastic.out(1, 0.3)'
+                });
+            }
+        });
+    });
+});
+
 document.addEventListener('click', function(e) {
-    const btn = e.target.closest('.btn-candy');
+    // 1. Soft Global Click Ripple
+    const globalRipple = document.createElement('div');
+    globalRipple.className = 'click-ripple';
+    globalRipple.style.left = `${e.clientX}px`;
+    globalRipple.style.top = `${e.clientY}px`;
+    document.body.appendChild(globalRipple);
+    setTimeout(() => globalRipple.remove(), 600);
+
+    // 2. Button Specific Ripple
+    const btn = e.target.closest('.btn, .btn-candy, .btn-primary, .btn-secondary, .btn-login, button');
     if (btn) {
         const circle = document.createElement('span');
         const diameter = Math.max(btn.clientWidth, btn.clientHeight);
@@ -138,16 +183,19 @@ document.addEventListener('click', function(e) {
         circle.style.width = circle.style.height = `${diameter}px`;
         circle.style.left = `${e.clientX - rect.left - radius}px`;
         circle.style.top = `${e.clientY - rect.top - radius}px`;
-        circle.classList.add('ripple');
+        circle.classList.add('ripple-ink'); // Use ripple-ink from style.css
         
-        const existingRipple = btn.querySelector('.ripple');
+        const existingRipple = btn.querySelector('.ripple-ink');
         if (existingRipple) {
             existingRipple.remove();
         }
         
+        // Ensure button has relative positioning and overflow hidden
+        if(getComputedStyle(btn).position === 'static') btn.style.position = 'relative';
+        btn.style.overflow = 'hidden';
+        
         btn.appendChild(circle);
         
-        // Remove after animation completes
         setTimeout(() => {
             circle.remove();
         }, 600);

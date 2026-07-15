@@ -408,12 +408,14 @@ body {
     .main-wrapper {
         width: 100% !important;
         overflow-x: hidden !important;
+        box-sizing: border-box !important;
     }
 
     .content-area {
         padding: 15px !important;
         width: 100% !important;
         overflow-x: hidden !important;
+        box-sizing: border-box !important;
     }
 
     .grid-2, .grid-3, .grid-4 {
