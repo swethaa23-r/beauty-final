@@ -639,14 +639,10 @@ section {
     }
 
     /* 3. Product Cards & Grids (1 per row) */
-    .product-grid, .category-grid, .shop-container, .article-grid, .dashboard-grid, .qv-grid, .cart-grid, .checkout-grid, .bs-product-grid, .horizontal-cards, .blog-container {
+    .product-grid, .category-grid, .shop-container, .article-grid, .dashboard-grid, .qv-grid, .cart-grid, .checkout-grid, .horizontal-cards, .blog-container {
         display: grid !important;
         grid-template-columns: 1fr !important;
         gap: 20px !important;
-    }
-
-    .bs-product-grid {
-        animation: none !important;
     }
 
     .h-card {
@@ -659,7 +655,7 @@ section {
     }
 
     /* Ensure product cards take full width */
-    .product-card, .category-card, .article-card, .bs-product-card, .pro-category-card {
+    .product-card:not(.marquee-track .product-card), .category-card, .article-card, .pro-category-card {
         width: 100% !important;
         max-width: 100% !important;
         margin: 0 auto !important;

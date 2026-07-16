@@ -1,5 +1,6 @@
 /* Global Reset and Variables */
 :root {
+  color-scheme: light;
   /* Theme Colors */
   --color-beige: #F8F4EF;
   --color-rose-gold: #C89B7B;
@@ -17,6 +18,11 @@
 
   /* Transitions */
   --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 15px)); }
 }
 /* Hamburger Icon Animation */
 .mobile-menu-btn {

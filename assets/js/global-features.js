@@ -295,3 +295,10 @@ function setupGlobalEventListeners() {
 }
 
 
+
+// Fix Marquee duplicates for seamless scrolling
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.bs-product-grid, .marquee-track').forEach(function(track) {
+        track.innerHTML += track.innerHTML;
+    });
+});
